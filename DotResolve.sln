@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.33808.371
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotResolve", "DotResolve\DotResolve.csproj", "{1417BC05-8770-4307-837E-9782C1E2B59D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotResolve.IntegrationTests", "DotResolve.IntegrationTests\DotResolve.IntegrationTests.csproj", "{31A81144-897B-4387-80F2-A72C52FD30B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1417BC05-8770-4307-837E-9782C1E2B59D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1417BC05-8770-4307-837E-9782C1E2B59D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1417BC05-8770-4307-837E-9782C1E2B59D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1417BC05-8770-4307-837E-9782C1E2B59D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31A81144-897B-4387-80F2-A72C52FD30B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31A81144-897B-4387-80F2-A72C52FD30B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31A81144-897B-4387-80F2-A72C52FD30B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31A81144-897B-4387-80F2-A72C52FD30B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DEAE5847-BE89-4CB2-8B41-E133BA7FC5F2}
+	EndGlobalSection
+EndGlobal

@@ -24,7 +24,12 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: csharp
-        
+
+    - uses: microsoft/DevSkim-Action@v1
+      with:
+        output-directory: sarif
+        output-filename: devskim-results.sarif
+
     - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.x
@@ -32,9 +37,19 @@ jobs:
         cache: true
         cache-dependency-path: '**/packages.lock.json'
 
-    - run: dotnet build --configuration Release
+    - run: >-
+        dotnet build
+        --configuration Release
+        --no-incremental
+        /p:ErrorLog=sarif/csharp-diagnostics.sarif
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
+        output: sarif
+        category: '/language:csharp'
+
+    - uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: sarif
         category: '/language:csharp'

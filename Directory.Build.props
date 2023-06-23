@@ -14,4 +14,7 @@
       packages.lock.json
     </DefaultItemExcludesInProjectFolder>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(ContinuousIntegrationBuild)' == 'true'">
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
 </Project>

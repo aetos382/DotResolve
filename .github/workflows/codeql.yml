@@ -25,10 +25,7 @@ jobs:
       with:
         languages: csharp
 
-    - uses: microsoft/DevSkim-Action@v1
-      with:
-        output-directory: sarif
-        output-filename: devskim-results.sarif
+    - run: mkdir sarif
 
     - uses: actions/setup-dotnet@v3
       with:
@@ -42,6 +39,11 @@ jobs:
         --configuration Release
         --no-incremental
         /p:ErrorLog=sarif/csharp-diagnostics.sarif
+
+    - uses: microsoft/DevSkim-Action@v1
+      with:
+        output-directory: sarif
+        output-filename: devskim-results.sarif
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2

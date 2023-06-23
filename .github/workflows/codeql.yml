@@ -49,9 +49,7 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         output: sarif
-        category: '/language:csharp'
 
     - uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: sarif
-        category: '/language:csharp'

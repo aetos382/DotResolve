@@ -38,7 +38,8 @@ jobs:
         dotnet build
         --configuration Release
         --no-incremental
-        /p:ErrorLog="${{ github.workspace }}/sarif/csharp-diagnostics.sarif"
+        /p:GenerateSarif=true
+        /p:SarifDirectory="${{ github.workspace }}/sarif"
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2

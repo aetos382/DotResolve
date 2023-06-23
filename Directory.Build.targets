@@ -1,0 +1,13 @@
+<Project>
+  <Target Name="SetErrorLogProperty" BeforeTargets="CoreCompile">
+    <PropertyGroup Condition="'$(GenerateSarif)' == 'true'">
+      <SarifDirectory Condition="'$(SarifDirectory)' == ''">$(OutDir)</SarifDirectory>
+      <SarifVersion Condition="'$(SafifVersion)' == ''">2.1</SarifVersion>
+      <SarifFileName Condition="'$(SarifFileName)' == ''">$(MSBuildProjectName).sarif.json</SarifFileName>
+      <SarifPath Condition="'$(SarifPath)' == ''">$([System.IO.Path]::Combine($(SarifDirectory), $(SarifFileName)))</SarifPath>
+      <ErrorLog Condition="'$(ErrorLog)' == ''">$(SarifPath);version=$(SarifVersion)</ErrorLog>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(SarifDirectory)" Condition="'$(SarifDirectory)' != '' and !Exists('$(SarifDirectory)')" />
+  </Target>
+</Project>

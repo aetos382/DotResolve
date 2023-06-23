@@ -59,6 +59,7 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{ matrix.language }}"
+        output: sarif
 
     - uses: github/codeql-action/upload-sarif@v2
       with:
@@ -69,3 +70,8 @@ jobs:
       with:
         sarif_file: sarif/devskim-results.sarif
         category: devskim
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: sarif-files
+        path: sarif

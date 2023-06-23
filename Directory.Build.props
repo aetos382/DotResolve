@@ -9,5 +9,9 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <DefaultItemExcludesInProjectFolder>
+      $(DefaultItemExcludesInProjectFolder);
+      packages.lock.json
+    </DefaultItemExcludesInProjectFolder>
   </PropertyGroup>
 </Project>

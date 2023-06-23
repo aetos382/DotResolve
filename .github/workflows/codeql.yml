@@ -24,9 +24,15 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: csharp
+        
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.x
+        dotnet-quality: preview
+        cache: true
+        cache-dependency-path: '**/packages.lock.json'
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+    - run: dotnet build --configuration Release
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2

@@ -1,13 +1,24 @@
 <Project>
   <Target Name="SetErrorLogProperty" BeforeTargets="CoreCompile">
     <PropertyGroup Condition="'$(GenerateSarif)' == 'true'">
+      <PreferredUILang Condition="'$(PreferredUILang)' == ''">en-US</PreferredUILang>
+
       <SarifDirectory Condition="'$(SarifDirectory)' == ''">$(OutDir)</SarifDirectory>
       <SarifVersion Condition="'$(SafifVersion)' == ''">2.1</SarifVersion>
       <SarifFileName Condition="'$(SarifFileName)' == ''">$(MSBuildProjectName).sarif.json</SarifFileName>
       <SarifPath Condition="'$(SarifPath)' == ''">$([System.IO.Path]::Combine($(SarifDirectory), $(SarifFileName)))</SarifPath>
+
       <ErrorLog Condition="'$(ErrorLog)' == ''">$(SarifPath);version=$(SarifVersion)</ErrorLog>
     </PropertyGroup>
 
     <MakeDir Directories="$(SarifDirectory)" Condition="'$(SarifDirectory)' != '' and !Exists('$(SarifDirectory)')" />
   </Target>
+
+  <Target Name="SetRestoreProperty" BeforeTargets="Restore">
+    <PropertyGroup>
+      <_LockFile>$([System.IO.Path]::Combine($(MSBuildProjectDirectory), 'packages.lock.json'))</_LockFile>
+      <RestorePackagesWithLockFile Condition="'$(ContinuousIntegrationBuild)' == 'true' and Exists($(_LockFile))">true</RestorePackagesWithLockFile>
+    </PropertyGroup>
+  </Target>
+
 </Project>

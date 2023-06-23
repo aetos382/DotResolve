@@ -50,6 +50,7 @@ jobs:
         dotnet build
         --configuration Release
         --no-incremental
+        --verbosity diagnostic
         /p:GenerateSarif=true
         /p:SarifDirectory="${{ github.workspace }}/sarif"
         /p:SarifFileName=csharp-compiler-diagnostics.sarif

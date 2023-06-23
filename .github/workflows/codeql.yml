@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: master
 
-env:
-  SARIF_DIR: ${{ github.workspace }}/sarif
-
 jobs:
   analyze:
     name: Analyze
@@ -28,7 +25,7 @@ jobs:
       with:
         languages: csharp
 
-    - run: mkdir "${{ env.SARIF_DIR }}"
+    - run: mkdir sarif
 
     - uses: actions/setup-dotnet@v3
       with:
@@ -41,20 +38,20 @@ jobs:
         dotnet build
         --configuration Release
         --no-incremental
-        /p:ErrorLog="${{ env.SARIF_DIR }}/csharp-diagnostics.sarif"
+        /p:ErrorLog="${{ github.workspace }}/csharp-diagnostics.sarif"
 
     - uses: microsoft/DevSkim-Action@v1
       with:
-        output-directory: "${{ env.SARIF_DIR }}"
+        output-directory: sarif
         output-filename: devskim-results.sarif
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
-        output: "${{ env.SARIF_DIR }}"
+        output: sarif
         category: '/language:csharp'
 
     - uses: github/codeql-action/upload-sarif@v2
       with:
-        sarif_file: "${{ env.SARIF_DIR }}"
+        sarif_file: sarif
         category: '/language:csharp'

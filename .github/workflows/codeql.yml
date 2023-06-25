@@ -59,6 +59,7 @@ jobs:
 
     # analyze は output フォルダの中身を削除してしまうので、一時フォルダに出力してから移動する
     - name: Perform CodeQL Analysis
+      id: analyze-sarif
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{ matrix.language }}"
@@ -80,11 +81,19 @@ jobs:
         path: sarif
 
     - uses: github/codeql-action/upload-sarif@v2
+      id: upload-sarif-1
       with:
         sarif_file: sarif/csharp-compiler-diagnostics.sarif
         category: csharp-compiler
 
+    - run: echo ${{ steps.analyze-sarif.outputs.sarif-id }}
+      if: always()
+
+    - run: echo ${{ steps.upload-sarif-1.outputs.sarif-id }}
+      if: always()
+
     - uses: github/codeql-action/upload-sarif@v2
+      id: upload-sarif-2
       with:
         sarif_file: sarif/devskim-results.sarif
         category: devskim

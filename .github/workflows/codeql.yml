@@ -60,11 +60,6 @@ jobs:
       with:
         category: "/language:${{ matrix.language }}"
 
-    - run: |-
-        pwd
-        ls .
-        ls sarif
-
     - uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: sarif/csharp-compiler-diagnostics.sarif

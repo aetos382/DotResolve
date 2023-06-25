@@ -59,6 +59,7 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{ matrix.language }}"
+        output: sarif-temp
 
     - uses: github/codeql-action/upload-sarif@v2
       with:
@@ -69,6 +70,16 @@ jobs:
       with:
         sarif_file: sarif/devskim-results.sarif
         category: devskim
+
+    - name: Check sarif file
+      id: check-sarif-file
+      uses: andstor/file-existence-action@v2
+      with:
+        files: sarif-temp/*.sarif
+
+    - name: Collect sarif files
+      run: mv sarif-temp/* sarif/
+      if: steps.check-sarif-file.outputs.files_exists == 'true'
 
     - uses: actions/upload-artifact@v3
       if: always()

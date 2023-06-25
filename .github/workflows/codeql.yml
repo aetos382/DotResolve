@@ -55,21 +55,12 @@ jobs:
         /p:SarifDirectory="${{ github.workspace }}/sarif"
         /p:SarifFileName=csharp-compiler-diagnostics.sarif
 
+    # analyze は output フォルダの中身を削除してしまうので、一時フォルダに出力してから移動する
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{ matrix.language }}"
         output: sarif-temp
-
-    - uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: sarif/csharp-compiler-diagnostics.sarif
-        category: csharp-compiler
-
-    - uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: sarif/devskim-results.sarif
-        category: devskim
 
     - name: Check sarif file
       id: check-sarif-file
@@ -82,7 +73,16 @@ jobs:
       if: steps.check-sarif-file.outputs.files_exists == 'true'
 
     - uses: actions/upload-artifact@v3
-      if: always()
       with:
         name: sarif-files
         path: sarif
+
+    - uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: sarif/csharp-compiler-diagnostics.sarif
+        category: csharp-compiler
+
+    - uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: sarif/devskim-results.sarif
+        category: devskim
